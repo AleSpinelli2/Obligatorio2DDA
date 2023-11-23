@@ -1,8 +1,10 @@
 package com.example.oblig.Entity;
 
+import java.sql.Date;
 import java.util.List;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -12,6 +14,7 @@ public class VentaEntity {
     private int nroVenta;
 
     @Column
+    @ElementCollection
     private List<ProductEntity> listaProductos;
 
     @Column
@@ -21,7 +24,7 @@ public class VentaEntity {
     private ClientEntity cliente;
 
     @Column
-    private String fchCompra;
+    private Date fchCompra;
 
     @Column
     private VendedorEntity vendedor;
@@ -58,11 +61,11 @@ public class VentaEntity {
         this.cliente = cliente;
     }
 
-    public String getFchCompra() {
+    public Date getFchCompra() {
         return fchCompra;
     }
 
-    public void setFchCompra(String fchCompra) {
+    public void setFchCompra(Date fchCompra) {
         this.fchCompra = fchCompra;
     }
 
@@ -75,7 +78,7 @@ public class VentaEntity {
     }
 
     public VentaEntity(int nroVenta, List<ProductEntity> listaProductos, int totalVenta, ClientEntity cliente,
-            String fchCompra, VendedorEntity vendedor) {
+            Date fchCompra, VendedorEntity vendedor) {
         this.nroVenta = nroVenta;
         this.listaProductos = listaProductos;
         this.totalVenta = totalVenta;

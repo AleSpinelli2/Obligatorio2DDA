@@ -13,21 +13,21 @@ public class VentaEntity {
     @Id
     private int nroVenta;
 
-    @Column
-    @ElementCollection
-    private List<ProductEntity> listaProductos;
+    // @Column
+    // @ElementCollection
+    // private List<ProductEntity> listaProductos;
 
     @Column
     private int totalVenta;
 
-    @Column
-    private ClientEntity cliente;
+    // @Column
+    // private ClientEntity cliente;
 
     @Column
     private Date fchCompra;
 
-    @Column
-    private VendedorEntity vendedor;
+    // @Column
+    // private VendedorEntity vendedor;
 
     public int getNroVenta() {
         return nroVenta;
@@ -37,13 +37,13 @@ public class VentaEntity {
         this.nroVenta = nroVenta;
     }
 
-    public List<ProductEntity> getListaProductos() {
-        return listaProductos;
-    }
+    // public List<ProductEntity> getListaProductos() {
+    //     return listaProductos;
+    // }
 
-    public void setListaProductos(List<ProductEntity> listaProductos) {
-        this.listaProductos = listaProductos;
-    }
+    // public void setListaProductos(List<ProductEntity> listaProductos) {
+    //     this.listaProductos = listaProductos;
+    // }
 
     public int getTotalVenta() {
         return totalVenta;
@@ -53,13 +53,13 @@ public class VentaEntity {
         this.totalVenta = totalVenta;
     }
 
-    public ClientEntity getCliente() {
-        return cliente;
-    }
+    // public ClientEntity getCliente() {
+    //     return cliente;
+    // }
 
-    public void setCliente(ClientEntity cliente) {
-        this.cliente = cliente;
-    }
+    // public void setCliente(ClientEntity cliente) {
+    //     // this.cliente = cliente;
+    // }
 
     public Date getFchCompra() {
         return fchCompra;
@@ -69,22 +69,21 @@ public class VentaEntity {
         this.fchCompra = fchCompra;
     }
 
-    public VendedorEntity getVendedor() {
-        return vendedor;
-    }
+    // public VendedorEntity getVendedor() {
+    //     return vendedor;
+    // }
 
-    public void setVendedor(VendedorEntity vendedor) {
-        this.vendedor = vendedor;
-    }
+    // public void setVendedor(VendedorEntity vendedor) {
+    //     this.vendedor = vendedor;
+    // }
 
-    public VentaEntity(int nroVenta, List<ProductEntity> listaProductos, int totalVenta, ClientEntity cliente,
-            Date fchCompra, VendedorEntity vendedor) {
+    public VentaEntity(int nroVenta, int totalVenta,
+            Date fchCompra) {
         this.nroVenta = nroVenta;
-        this.listaProductos = listaProductos;
+        // this.listaProductos = listaProductos;
         this.totalVenta = totalVenta;
-        this.cliente = cliente;
         this.fchCompra = fchCompra;
-        this.vendedor = vendedor;
+        // this.vendedor = vendedor;
     }
 
     public VentaEntity() {

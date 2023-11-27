@@ -1,67 +1,93 @@
-// package com.example.oblig.Entity;
+package com.example.oblig.Entity;
 
-// import jakarta.persistence.Column;
-// import jakarta.persistence.Entity;
-// import jakarta.persistence.GeneratedValue;
-// import jakarta.persistence.GenerationType;
-// import jakarta.persistence.Id;
-// import jakarta.persistence.Inheritance;
-// import jakarta.persistence.InheritanceType;
+import java.util.HashSet;
+import java.util.Set;
 
-// @Entity
-// public class ClientEntity {
-//     @Id
-//     // @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private int id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-//     // @Column
-//     // private String nombre;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
-//     // @Column
-//     // private String direccion;
+@Entity
+@Table(name = "clients")
+@Inheritance(strategy = InheritanceType.JOINED)
+public class ClientEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-//     // @Column
-//     // private int telefono;
+    @Column
+    private String nombre;
 
-//     public int getIdCli() {
-//         return id;
-//     }
+    @Column
+    private String direccion;
 
-//     public void setIdCli(int id) {
-//         this.id = id;
-//     }
+    @Column
+    private int telefono;
 
-//     // public String getNombre() {
-//     //     return nombre;
-//     // }
+    @JsonIgnore
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private Set<VentaEntity> venta_productos = new HashSet<>();
 
-//     // public void setNombre(String nombre) {
-//     //     this.nombre = nombre;
-//     // }
+    public Set<VentaEntity> getVenta_productos() {
+        return venta_productos;
+    }
 
-//     // public String getDireccion() {
-//     //     return direccion;
-//     // }
+    public void setVenta_productos(Set<VentaEntity> venta_productos) {
+        this.venta_productos = venta_productos;
+    }
 
-//     // public void setDireccion(String direccion) {
-//     //     this.direccion = direccion;
-//     // }
+    public int getIdCli() {
+        return id;
+    }
 
-//     // public int getTelefono() {
-//     //     return telefono;
-//     // }
+    public void setIdCli(int id) {
+        this.id = id;
+    }
 
-//     // public void setTelefono(int telefono) {
-//     //     this.telefono = telefono;
-//     // }
+    public String getNombre() {
+        return nombre;
+    }
 
-//     public ClientEntity(int idCli, String nombre, String direccion, int telefono) {
-//         this.id = idCli;
-//         // this.nombre = nombre;
-//         // this.direccion = direccion;
-//         // this.telefono = telefono;
-//     }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-//     public ClientEntity() {
-//     }
-// }
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public int getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
+    }
+
+    public ClientEntity(int idCli, String nombre, String direccion, int telefono, Set<VentaEntity> venta_productos) {
+        this.id = idCli;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.venta_productos = venta_productos;
+    }
+
+    public ClientEntity() {
+    }
+}

@@ -17,13 +17,13 @@ import com.example.oblig.Service.ProductService;
 import com.example.oblig.Utils.AppExeption;
 
 @Controller
-@RequestMapping("/products")
-public class ProductContoller {
+@RequestMapping("/entities")
+public class EntitiesContoller {
 
     @Autowired
     private ProductService productService;
 
-    @PostMapping
+    @PostMapping("/products")
     public ResponseEntity<?> agregarProducto(@RequestBody ProductEntity productEntity) {
         try {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(productService.save(productEntity));
@@ -35,7 +35,7 @@ public class ProductContoller {
         }
     }
 
-    @DeleteMapping("{codProd}")
+    @DeleteMapping("/products/{codProd}")
     public ResponseEntity<?> eliminarProducto(@PathVariable int codProd) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(productService.delete(codProd));
@@ -46,7 +46,7 @@ public class ProductContoller {
         }
     }
 
-    @PutMapping
+    @PutMapping("/products")
     public ResponseEntity<?> modificarProducto(@RequestBody ProductEntity productEntity) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(productService.update(productEntity));
@@ -57,7 +57,7 @@ public class ProductContoller {
         }
     }
 
-    @GetMapping("{codProd}")
+    @GetMapping("/products/{codProd}")
     public ResponseEntity<?> buscarProducto(@PathVariable int codProd) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(productService.getByCod(codProd));
@@ -67,4 +67,5 @@ public class ProductContoller {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error en el sistema");
         }
     }
+
 }

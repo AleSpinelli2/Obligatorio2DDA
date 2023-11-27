@@ -1,14 +1,14 @@
-// package com.example.oblig.Entity;
+package com.example.oblig.Entity;
 
-// import jakarta.persistence.Entity;
+import jakarta.persistence.Entity;
 
-// @Entity
-// public class RegularEntity extends ClientEntity {
-//     public RegularEntity(int idCli, String nombre, String direccion, int telefono) {
-//         super(idCli, nombre, direccion, telefono);
-//     }
+@Entity
+public class RegularEntity extends ClientEntity {
+    public RegularEntity(int idCli, String nombre, String direccion, int telefono) {
+        super(idCli, nombre, direccion, telefono);
+    }
 
-//     public RegularEntity() {
+    public RegularEntity() {
 
-//     }
-// }
+    }
+}

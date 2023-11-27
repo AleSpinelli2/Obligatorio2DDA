@@ -11,7 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.JoinColumn;
 
 @Entity
@@ -34,7 +33,7 @@ public class VentaEntity {
     private Date fchCompra;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "vendedor_id", referencedColumnName = "id")
+    @JoinColumn(name = "vendedor_id", referencedColumnName = "vendedor_id")
     private VendedorEntity vendedor;
 
     public int getNroVenta() {

@@ -1,5 +1,6 @@
 package com.example.oblig.Entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -19,7 +20,7 @@ public class VendedorEntity {
 
     @JsonIgnore
     @OneToMany(mappedBy = "vendedor")
-    private Set<VendedorEntity> vendedor;
+    private Set<VentaEntity> ventas = new HashSet<>();;
 
     public int getNroVendedor() {
         return nroVendedor;

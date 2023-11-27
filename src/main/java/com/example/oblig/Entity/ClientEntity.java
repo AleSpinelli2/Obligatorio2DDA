@@ -13,9 +13,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -38,14 +35,14 @@ public class ClientEntity {
 
     @JsonIgnore
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    private Set<VentaEntity> venta_productos = new HashSet<>();
+    private Set<VentaEntity> ventaProductos = new HashSet<VentaEntity>();
 
     public Set<VentaEntity> getVenta_productos() {
-        return venta_productos;
+        return ventaProductos;
     }
 
     public void setVenta_productos(Set<VentaEntity> venta_productos) {
-        this.venta_productos = venta_productos;
+        this.ventaProductos = venta_productos;
     }
 
     public int getIdCli() {
@@ -80,12 +77,12 @@ public class ClientEntity {
         this.telefono = telefono;
     }
 
-    public ClientEntity(int idCli, String nombre, String direccion, int telefono, Set<VentaEntity> venta_productos) {
+    public ClientEntity(int idCli, String nombre, String direccion, int telefono, Set<VentaEntity> ventaProductos) {
         this.id = idCli;
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
-        this.venta_productos = venta_productos;
+        this.ventaProductos = ventaProductos;
     }
 
     public ClientEntity() {

@@ -1,6 +1,7 @@
 package com.example.oblig.Entity;
 
 import java.sql.Date;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,8 +19,9 @@ public class VipEntity extends ClientEntity {
         this.fchIngreso = fchIngreso;
     }
 
-    public VipEntity(int idCli, String nombre, String direccion, int telefono, Date fchIngreso) {
-        super(idCli, nombre, direccion, telefono, venta_productos);
+    public VipEntity(int idCli, String nombre, String direccion, int telefono, Set<VentaEntity> ventaProductos,
+            Date fchIngreso) {
+        super(idCli, nombre, direccion, telefono, ventaProductos);
         this.fchIngreso = fchIngreso;
     }
 

@@ -13,19 +13,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.oblig.Entity.VentaEntity;
-import com.example.oblig.Utils.AppExeption;
+import com.example.oblig.Service.VentaService;
+import com.example.oblig.Utils.AppException;
 
 @Controller
 @RequestMapping("/venta")
 public class VentaController {
     @Autowired
-    public VentaService ventaService;
+    private VentaService ventaService;
 
     @PostMapping
     public ResponseEntity<?> agregarVenta(@RequestBody VentaEntity ventaEntity) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(VentaEntity.agregarVenta(ventaEntity));
-        } catch (AppExeption e) {
+            return ResponseEntity.status(HttpStatus.OK).body(ventaService.agregarVenta(ventaEntity));
+        } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del sistema");
@@ -35,8 +36,8 @@ public class VentaController {
     @PutMapping
     public ResponseEntity<?> modificarVenta(@RequestBody VentaEntity ventaEntity) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(VentaEntity.modificarVenta(ventaEntity));
-        } catch (AppExeption e) {
+            return ResponseEntity.status(HttpStatus.OK).body(ventaService.modificarVenta(ventaEntity));
+        } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del sistema");
@@ -46,8 +47,8 @@ public class VentaController {
     @DeleteMapping("{nroVenta}")
     public ResponseEntity<?> eliminarVenta(@PathVariable int nroVenta) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(VentaEntity.eliminarVenta(nroVenta));
-        } catch (AppExeption e) {
+            return ResponseEntity.status(HttpStatus.OK).body(ventaService.eliminarVenta(nroVenta));
+        } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del sistema");
@@ -57,8 +58,8 @@ public class VentaController {
     @GetMapping("{nroVenta}")
     public ResponseEntity<?> buscarVenta(@PathVariable int nroVenta) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(VentaEntity.buscarVenta(nroVenta));
-        } catch (AppExeption e) {
+            return ResponseEntity.status(HttpStatus.OK).body(ventaService.buscarVenta(nroVenta));
+        } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del sistema");

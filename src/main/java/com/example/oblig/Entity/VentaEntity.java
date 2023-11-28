@@ -33,7 +33,7 @@ public class VentaEntity {
     private Date fchCompra;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "vendedor_id", referencedColumnName = "vendedor_id")
+    @JoinColumn(name = "vendedor_id", referencedColumnName = "nroVendedor")
     private VendedorEntity vendedor;
 
     public int getNroVenta() {

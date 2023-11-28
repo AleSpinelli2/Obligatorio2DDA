@@ -22,7 +22,7 @@ public class EntitiesContoller {
 
     @Autowired
     private ProductService productService;
-
+    
     @PostMapping("/products")
     public ResponseEntity<?> agregarProducto(@RequestBody ProductEntity productEntity) {
         try {

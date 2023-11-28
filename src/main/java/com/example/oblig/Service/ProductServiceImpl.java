@@ -1,3 +1,4 @@
+
 package com.example.oblig.Service;
 
 import java.util.Optional;
@@ -14,6 +15,8 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+   
+    @Override
     public ProductEntity save(ProductEntity productEntity) throws AppExeption {
         if (!(productRepository.findByNombre(productEntity.getNombre()).size() > 0)) {
             return productRepository.save(productEntity);
@@ -21,6 +24,7 @@ public class ProductServiceImpl implements ProductService {
         throw new AppExeption("Este nombre ya existe bro");
     }
 
+    @Override
     public String delete(int codProd) throws AppExeption {
         if (productRepository.existsById(codProd)) {
             productRepository.deleteById(codProd);
@@ -29,6 +33,8 @@ public class ProductServiceImpl implements ProductService {
         throw new AppExeption("El producto no se pudo eliminar o no existe");
     }
 
+    
+    @Override
     public ProductEntity update(ProductEntity productEntity) throws AppExeption {
         if (productRepository.existsById(productEntity.getCodProd())) {
             return productRepository.save(productEntity);
@@ -36,6 +42,8 @@ public class ProductServiceImpl implements ProductService {
         throw new AppExeption("El producto no se modifico o no existe");
     }
 
+    
+    @Override
     public Optional<ProductEntity> getByCod(int codProd) throws AppExeption {
         if (productRepository.existsById(codProd)) {
             return productRepository.findById(codProd);

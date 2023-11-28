@@ -38,18 +38,18 @@ public class VendedorEntity {
         this.nombre = nombre;
     }
 
-    public Set<VendedorEntity> getVendedor() {
-        return vendedor;
+    public Set<VentaEntity> getVendedor() {
+        return ventas;
     }
 
-    public void setVendedor(Set<VendedorEntity> vendedor) {
-        this.vendedor = vendedor;
+    public void setVendedor(Set<VentaEntity> ventas) {
+        this.ventas = ventas;
     }
 
-    public VendedorEntity(int nroVendedor, String nombre, Set<VendedorEntity> vendedor) {
+    public VendedorEntity(int nroVendedor, String nombre, Set<VentaEntity> ventas) {
         this.nroVendedor = nroVendedor;
         this.nombre = nombre;
-        this.vendedor = vendedor;
+        this.ventas = ventas;
     }
 
     public VendedorEntity() {

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.oblig.Entity.ProductEntity;
 import com.example.oblig.Service.ProductService;
-import com.example.oblig.Utils.AppExeption;
+import com.example.oblig.Utils.AppException;
 
 @Controller
 @RequestMapping("/products")
@@ -27,7 +27,7 @@ public class ProductContoller {
     public ResponseEntity<?> agregarProducto(@RequestBody ProductEntity productEntity) {
         try {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(productService.save(productEntity));
-        } catch (AppExeption e) {
+        } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -39,7 +39,7 @@ public class ProductContoller {
     public ResponseEntity<?> eliminarProducto(@PathVariable int codProd) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(productService.delete(codProd));
-        } catch (AppExeption e) {
+        } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error en el sistema.");
@@ -50,7 +50,7 @@ public class ProductContoller {
     public ResponseEntity<?> modificarProducto(@RequestBody ProductEntity productEntity) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(productService.update(productEntity));
-        } catch (AppExeption e) {
+        } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error en el sistema");
@@ -61,7 +61,7 @@ public class ProductContoller {
     public ResponseEntity<?> buscarProducto(@PathVariable int codProd) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(productService.getByCod(codProd));
-        } catch (AppExeption e) {
+        } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error en el sistema");

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.oblig.Entity.VentaEntity;
-import com.example.oblig.Utils.AppExeption;
+import com.example.oblig.Utils.AppException;
 
 @Controller
 @RequestMapping("/venta")
@@ -25,7 +25,7 @@ public class VentaController {
     public ResponseEntity<?> agregarVenta(@RequestBody VentaEntity ventaEntity) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(VentaEntity.agregarVenta(ventaEntity));
-        } catch (AppExeption e) {
+        } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del sistema");
@@ -36,7 +36,7 @@ public class VentaController {
     public ResponseEntity<?> modificarVenta(@RequestBody VentaEntity ventaEntity) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(VentaEntity.modificarVenta(ventaEntity));
-        } catch (AppExeption e) {
+        } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del sistema");
@@ -47,7 +47,7 @@ public class VentaController {
     public ResponseEntity<?> eliminarVenta(@PathVariable int nroVenta) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(VentaEntity.eliminarVenta(nroVenta));
-        } catch (AppExeption e) {
+        } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del sistema");
@@ -58,7 +58,7 @@ public class VentaController {
     public ResponseEntity<?> buscarVenta(@PathVariable int nroVenta) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(VentaEntity.buscarVenta(nroVenta));
-        } catch (AppExeption e) {
+        } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del sistema");

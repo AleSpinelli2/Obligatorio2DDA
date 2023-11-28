@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.oblig.Entity.ProductEntity;
 import com.example.oblig.Repository.ProductRepository;
-import com.example.oblig.Utils.AppExeption;
+import com.example.oblig.Utils.AppException;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -17,37 +17,37 @@ public class ProductServiceImpl implements ProductService {
 
    
     @Override
-    public ProductEntity save(ProductEntity productEntity) throws AppExeption {
+    public ProductEntity save(ProductEntity productEntity) throws AppException {
         if (!(productRepository.findByNombre(productEntity.getNombre()).size() > 0)) {
             return productRepository.save(productEntity);
         }
-        throw new AppExeption("Este nombre ya existe bro");
+        throw new AppException("Este nombre ya existe bro");
     }
 
     @Override
-    public String delete(int codProd) throws AppExeption {
+    public String delete(int codProd) throws AppException {
         if (productRepository.existsById(codProd)) {
             productRepository.deleteById(codProd);
             return "Producto eliminado con exito!!";
         }
-        throw new AppExeption("El producto no se pudo eliminar o no existe");
+        throw new AppException("El producto no se pudo eliminar o no existe");
     }
 
     
     @Override
-    public ProductEntity update(ProductEntity productEntity) throws AppExeption {
+    public ProductEntity update(ProductEntity productEntity) throws AppException {
         if (productRepository.existsById(productEntity.getCodProd())) {
             return productRepository.save(productEntity);
         }
-        throw new AppExeption("El producto no se modifico o no existe");
+        throw new AppException("El producto no se modifico o no existe");
     }
 
     
     @Override
-    public Optional<ProductEntity> getByCod(int codProd) throws AppExeption {
+    public Optional<ProductEntity> getByCod(int codProd) throws AppException {
         if (productRepository.existsById(codProd)) {
             return productRepository.findById(codProd);
         }
-        throw new AppExeption("No se encontro ese producto");
+        throw new AppException("No se encontro ese producto");
     }
 }

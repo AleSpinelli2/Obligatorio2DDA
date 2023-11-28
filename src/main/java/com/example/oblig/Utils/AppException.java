@@ -1,7 +1,7 @@
 package com.example.oblig.Utils;
 
-public class AppExeption extends Exception {
-    public AppExeption(String msg) {
+public class AppException extends Exception {
+    public AppException(String msg) {
         super(msg);
     }
 }

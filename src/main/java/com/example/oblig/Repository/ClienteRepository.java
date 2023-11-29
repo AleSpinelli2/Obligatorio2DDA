@@ -12,10 +12,13 @@ import com.example.oblig.Entity.VipEntity;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<ClientEntity, Integer> {
-  // @Query("SELECT c FROM ClientEntity c WHERE TYPE(c) = VipEntity")
-  // List<VipEntity> findAllVip();
+  @Query("SELECT c FROM ClientEntity c WHERE TYPE(c) = VipEntity")
+  List<VipEntity> findAllVip();
 
   // @Query("SELECT c FROM ClientEntity c WHERE TYPE(c) = RegularEnity")
   // List<RegularEntity> findAllRegular();
+
+  @Query("SELECT c FROM ClientEntity c WHERE TYPE(c) = RegularEntity")
+  List<RegularEntity> findAllRegular();
 
 }

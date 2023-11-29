@@ -14,6 +14,7 @@ import com.example.oblig.Controller.VentaController;
 import com.example.oblig.Entity.ClientEntity;
 import com.example.oblig.Entity.ProductEntity;
 import com.example.oblig.Entity.VentaEntity;
+import com.example.oblig.Entity.VipEntity;
 import com.example.oblig.Repository.VentaRepository;
 import com.example.oblig.Utils.AppException;
 
@@ -25,6 +26,10 @@ public class VentaServiceImpl implements VentaService {
     @Override
     public VentaEntity agregarVenta(VentaEntity ventaEntity) throws AppException {
         if (ventaRepository.findById(ventaEntity.getNroVenta()).isPresent()) {
+            if (esClienteVipConDescuento(ventaEntity)) {
+                aplicarDescuentoVentaVip(ventaEntity);
+            }
+            controlStock(ventaEntity);
             return ventaRepository.save(ventaEntity);
         }
         throw new AppException("Esta venta ya existe");
@@ -57,21 +62,36 @@ public class VentaServiceImpl implements VentaService {
 
     @Override
     public Set<VentaEntity> getProductosByCliente(ClientEntity cliente) {
-       
+
         return cliente.getVenta_productos();
     }
 
-    public Set<VentaEntity> findByFchCompra(Date fchCompra){
-        
-        Set<VentaEntity> ventasPorFecha = new HashSet<>(); 
-        
-        for(VentaEntity unaVenta: ventaRepository.findAll()){
-            if(unaVenta.getFchCompra() == fchCompra)
-            {
+    public Set<VentaEntity> findByFchCompra(Date fchCompra) {
+
+        Set<VentaEntity> ventasPorFecha = new HashSet<>();
+
+        for (VentaEntity unaVenta : ventaRepository.findAll()) {
+            if (unaVenta.getFchCompra() == fchCompra) {
                 ventasPorFecha.add(unaVenta);
             }
         }
 
         return ventasPorFecha;
+    }
+
+    private boolean esClienteVipConDescuento(VentaEntity ventaEntity) {
+        return ventaEntity.getCliente() instanceof VipEntity
+                && ventaEntity.getCliente().getVenta_productos().size() % 3 == 0;
+    }
+
+    private void aplicarDescuentoVentaVip(VentaEntity ventaEntity) {
+        double totalConDescuento = ventaEntity.getTotalVenta() * 0.7;
+        ventaEntity.setTotalVenta((int) totalConDescuento);
+    }
+
+    private void controlStock(VentaEntity ventaEntity) {
+        for (ProductEntity producto : ventaEntity.getListaProductos()) {
+            producto.setCantStock(producto.getCantStock() - 1);
+        }
     }
 }

@@ -5,7 +5,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.oblig.Entity.ProductEntity;
 import com.example.oblig.Entity.VentaEntity;
+import com.example.oblig.Entity.VipEntity;
 import com.example.oblig.Repository.VentaRepository;
 import com.example.oblig.Utils.AppException;
 
@@ -17,6 +19,10 @@ public class VentaServiceImpl implements VentaService {
     @Override
     public VentaEntity agregarVenta(VentaEntity ventaEntity) throws AppException {
         if (ventaRepository.findById(ventaEntity.getNroVenta()).isPresent()) {
+            if (esClienteVipConDescuento(ventaEntity)) {
+                aplicarDescuentoVentaVip(ventaEntity);
+            }
+            controlStock(ventaEntity);
             return ventaRepository.save(ventaEntity);
         }
         throw new AppException("Esta venta ya existe");
@@ -45,5 +51,20 @@ public class VentaServiceImpl implements VentaService {
             return ventaRepository.findById(nroVenta);
         }
         throw new AppException("No se encontro esta venta");
+    }
+
+    private boolean esClienteVipConDescuento(VentaEntity ventaEntity) {
+    return ventaEntity.getCliente() instanceof VipEntity && ventaEntity.getCliente().getVenta_productos().size() % 3 == 0;
+    }
+
+    private void aplicarDescuentoVentaVip(VentaEntity ventaEntity) {
+        double totalConDescuento = ventaEntity.getTotalVenta() * 0.7;
+        ventaEntity.setTotalVenta((int) totalConDescuento);
+    }
+
+    private void controlStock (VentaEntity ventaEntity) {
+    for(ProductEntity producto : ventaEntity.getListaProductos()){
+        producto.setCantStock(producto.getCantStock()-1);
+    }
     }
 }

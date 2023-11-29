@@ -1,3 +1,4 @@
+package com.example.oblig.Controller;
 import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,7 @@ public class ClienteController{
     @PostMapping
     public ResponseEntity<?> AddClient (@RequestBody ClientEntity clienteEntity){
         try{
-            ResponseEntity.status(HttpStatus.CREATED).body(clienteService.save(clienteEntity));
+           return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.save(clienteEntity));
         } catch(AppException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
@@ -40,7 +41,7 @@ public class ClienteController{
     @DeleteMapping("{id}")
     public ResponseEntity<?> DeleteClient(@PathVariable int id){
         try{
-            ResponseEntity.status(HttpStatus.OK).body(clienteService.delete(id));
+           return ResponseEntity.status(HttpStatus.OK).body(clienteService.delete(id));
         }catch(AppException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }catch(Exception e){
@@ -51,9 +52,9 @@ public class ClienteController{
     @PutMapping
     public ResponseEntity<?> UpdateClient(@RequestBody ClientEntity clientEntity){
         try{
-            ResponseEntity.status(HttpStatus.CREATED).body(clienteService.save(clientEntity));
+            return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.save(clientEntity));
         }catch(AppException e){
-            ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+           return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }catch(Exception e){
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del sistema");

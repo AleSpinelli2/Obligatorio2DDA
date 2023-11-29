@@ -9,7 +9,7 @@ import jakarta.persistence.Entity;
 @Entity
 public class VipEntity extends ClientEntity {
     @Column
-    public Date fchIngreso;
+    private Date fchIngreso;
 
     public Date getFchIngreso() {
         return fchIngreso;

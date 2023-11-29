@@ -22,6 +22,17 @@ public class ProductEntity {
     @Column
     private int cantStock;
 
+    @Column
+    private String imageUrl;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public int getCodProd() {
         return codProd;
     }

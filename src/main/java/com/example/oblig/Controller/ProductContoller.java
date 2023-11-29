@@ -1,5 +1,7 @@
 package com.example.oblig.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.oblig.Entity.ProductEntity;
 import com.example.oblig.Service.ProductService;
@@ -63,6 +66,16 @@ public class ProductContoller {
             return ResponseEntity.status(HttpStatus.OK).body(productService.getByCod(codProd));
         } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error en el sistema");
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<?> listarProductosStockMenor(@RequestParam int cantidad) {
+        try {
+            List<ProductEntity> productos = productService.listarProductosStockMenor(cantidad);
+            return ResponseEntity.status(HttpStatus.OK).body(productos);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error en el sistema");
         }

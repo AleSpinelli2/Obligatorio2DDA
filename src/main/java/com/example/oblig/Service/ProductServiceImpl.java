@@ -1,6 +1,7 @@
 
 package com.example.oblig.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-   
     @Override
     public ProductEntity save(ProductEntity productEntity) throws AppException {
         if (!(productRepository.findByNombre(productEntity.getNombre()).size() > 0)) {
@@ -33,7 +33,6 @@ public class ProductServiceImpl implements ProductService {
         throw new AppException("El producto no se pudo eliminar o no existe");
     }
 
-    
     @Override
     public ProductEntity update(ProductEntity productEntity) throws AppException {
         if (productRepository.existsById(productEntity.getCodProd())) {
@@ -42,12 +41,15 @@ public class ProductServiceImpl implements ProductService {
         throw new AppException("El producto no se modifico o no existe");
     }
 
-    
     @Override
     public Optional<ProductEntity> getByCod(int codProd) throws AppException {
         if (productRepository.existsById(codProd)) {
             return productRepository.findById(codProd);
         }
         throw new AppException("No se encontro ese producto");
+    }
+
+    public List<ProductEntity> listarProductosStockMenor(int cantidad) {
+        return productRepository.findBycantStockLessThan(cantidad);
     }
 }

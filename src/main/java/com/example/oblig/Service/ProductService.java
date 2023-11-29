@@ -1,5 +1,6 @@
 package com.example.oblig.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.example.oblig.Entity.ProductEntity;
@@ -15,4 +16,5 @@ public interface ProductService {
 
     public Optional<ProductEntity> getByCod(int codProd) throws AppException;
 
+    public List<ProductEntity> listarProductosStockMenor(int cantidad) throws AppException;
 }

@@ -24,53 +24,46 @@ public class VendedorController {
     private VendedorService vendedorService;
 
     @PostMapping
-    public ResponseEntity<?> agregarVendedor(@RequestBody VendedorEntity vendedorEntity){
-        try{
+    public ResponseEntity<?> agregarVendedor(@RequestBody VendedorEntity vendedorEntity) {
+        try {
             return ResponseEntity.status(HttpStatus.CREATED).body(vendedorService.save(vendedorEntity));
-        }
-        catch(AppException e){
+        } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del sistema.");
         }
     }
 
     @DeleteMapping("{nroVendedor}")
-    public ResponseEntity<?> eliminarVendedor(@PathVariable int nroVendedor){
-        try{
+    public ResponseEntity<?> eliminarVendedor(@PathVariable int nroVendedor) {
+        try {
             return ResponseEntity.status(HttpStatus.OK).body(vendedorService.delete(nroVendedor));
-        }
-        catch(AppException e){
+        } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del sistema.");
         }
     }
+
     @PutMapping
-    public ResponseEntity<?> actuzalizarVendedor(@RequestBody VendedorEntity vendedorEntity){
-        try{
+    public ResponseEntity<?> actuzalizarVendedor(@RequestBody VendedorEntity vendedorEntity) {
+        try {
             return ResponseEntity.status(HttpStatus.OK).body(vendedorService.update(vendedorEntity));
-        }
-        catch(AppException e){
+        } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del sistema.");
         }
     }
 
     @GetMapping("{nroVendedor}")
-    public ResponseEntity<?> traerVendedor(@PathVariable int nroVendedor){
-        try{
+    public ResponseEntity<?> traerVendedor(@PathVariable int nroVendedor) {
+        try {
             return ResponseEntity.status(HttpStatus.OK).body(vendedorService.getByCod(nroVendedor));
-        }
-        catch(AppException e){
+        } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del sistema.");
         }
     }

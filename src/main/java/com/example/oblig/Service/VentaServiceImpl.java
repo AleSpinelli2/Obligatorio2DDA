@@ -1,10 +1,18 @@
 package com.example.oblig.Service;
 
+import java.sql.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.oblig.Controller.VentaController;
+import com.example.oblig.Entity.ClientEntity;
+import com.example.oblig.Entity.ProductEntity;
 import com.example.oblig.Entity.VentaEntity;
 import com.example.oblig.Repository.VentaRepository;
 import com.example.oblig.Utils.AppException;
@@ -45,5 +53,25 @@ public class VentaServiceImpl implements VentaService {
             return ventaRepository.findById(nroVenta);
         }
         throw new AppException("No se encontro esta venta");
+    }
+
+    @Override
+    public Set<VentaEntity> getProductosByCliente(ClientEntity cliente) {
+       
+        return cliente.getVenta_productos();
+    }
+
+    public Set<VentaEntity> findByFchCompra(Date fchCompra){
+        
+        Set<VentaEntity> ventasPorFecha = new HashSet<>(); 
+        
+        for(VentaEntity unaVenta: ventaRepository.findAll()){
+            if(unaVenta.getFchCompra() == fchCompra)
+            {
+                ventasPorFecha.add(unaVenta);
+            }
+        }
+
+        return ventasPorFecha;
     }
 }

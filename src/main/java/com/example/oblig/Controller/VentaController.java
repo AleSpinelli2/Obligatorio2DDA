@@ -1,7 +1,10 @@
 package com.example.oblig.Controller;
 
+import java.sql.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -63,6 +66,17 @@ public class VentaController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del sistema");
+        }
+    }
+
+    @GetMapping("/fecha/{fchCompra}")
+    public ResponseEntity<?> findByFchCompra(@PathVariable Date fchCompra){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(ventaService.findByFchCompra(fchCompra));
+        } catch (AppException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno en el sistema");
         }
     }
 }

@@ -55,19 +55,20 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public List<ClientEntity> getByVip() throws AppException {
-        return clienteRepository
-                .findAll().stream()
-                .filter(cliente -> cliente instanceof VipEntity)
-                .map(cliente -> (VipEntity) cliente)
-                .collect(Collectors.toList());
+    public List<VipEntity> getByVip() throws AppException {
+        return clienteRepository.findAllVip();
+                // .findAll().stream()
+                // .filter(cliente -> cliente instanceof VipEntity)
+                // .map(cliente -> (VipEntity) cliente)
+                // .collect(Collectors.toList());
     }
 
     @Override
-    public List<ClientEntity> getByRegular() throws AppException {
-        return clienteRepository.findAll().stream()
-                .filter(cliente -> cliente instanceof RegularEntity)
-                .map(cliente -> (ClientEntity) cliente)
-                .collect(Collectors.toList());
-    }
+    public List<RegularEntity> getByRegular() throws AppException {
+        return clienteRepository.findAllRegular();
+    // findAll().stream()
+    //             .filter(cliente -> cliente instanceof RegularEntity)
+    //             .map(cliente -> (ClientEntity) cliente)
+    //             .collect(Collectors.toList());
+     }
 }

@@ -18,8 +18,8 @@ public interface ClienteService {
 
     public List<ClientEntity> getAllClient() throws AppException;
 
-    public List<ClientEntity> getByVip() throws AppException;
+    public List<VipEntity> getByVip() throws AppException;
 
-    public List<ClientEntity> getByRegular() throws AppException;
+    public List<RegularEntity> getByRegular() throws AppException;
 
 }

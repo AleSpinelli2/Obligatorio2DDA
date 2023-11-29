@@ -88,7 +88,7 @@ public class ClienteController {
     @GetMapping("/vip")
     public ResponseEntity<?> getClientesVip() {
         try {
-            List<ClientEntity> clientesVip = clienteService.getByVip();
+            List<VipEntity> clientesVip = clienteService.getByVip();
             return ResponseEntity.ok(clientesVip);
         } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -100,7 +100,7 @@ public class ClienteController {
     @GetMapping("/regular")
     public ResponseEntity<?> getClientesRegular() {
         try {
-            List<ClientEntity> clientesVip = clienteService.getByRegular();
+            List<RegularEntity> clientesVip = clienteService.getByRegular();
             return ResponseEntity.ok(clientesVip);
         } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

@@ -26,9 +26,13 @@ public class VentaServiceImpl implements VentaService {
     @Override
     public VentaEntity agregarVenta(VentaEntity ventaEntity) throws AppException {
         if (ventaRepository.findById(ventaEntity.getNroVenta()).isPresent()) {
-            throw new AppException("Esta venta ya existe");
+            if (esClienteVipConDescuento(ventaEntity)) {
+                aplicarDescuentoVentaVip(ventaEntity);
+            }
+            controlStock(ventaEntity);
+            return ventaRepository.save(ventaEntity);
         }
-        return ventaRepository.save(ventaEntity);
+        throw new AppException("Esta venta ya existe");
     }
 
     @Override

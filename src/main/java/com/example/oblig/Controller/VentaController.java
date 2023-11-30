@@ -32,7 +32,8 @@ public class VentaController {
         } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del sistema");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error interno del sistema" + e.getMessage());
         }
     }
 
@@ -70,12 +71,12 @@ public class VentaController {
     }
 
     @GetMapping("/fecha/{fchCompra}")
-    public ResponseEntity<?> findByFchCompra(@PathVariable Date fchCompra){
-        try{
+    public ResponseEntity<?> findByFchCompra(@PathVariable Date fchCompra) {
+        try {
             return ResponseEntity.status(HttpStatus.OK).body(ventaService.findByFchCompra(fchCompra));
-        } catch (AppException e){
+        } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno en el sistema");
         }
     }

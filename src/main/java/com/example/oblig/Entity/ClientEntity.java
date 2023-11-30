@@ -13,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -32,7 +33,7 @@ public class ClientEntity {
     private int telefono;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cliente")
     private Set<VentaEntity> ventaProductos = new HashSet<VentaEntity>();
 
     public Set<VentaEntity> getVenta_productos() {

@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,15 +27,17 @@ public class VentaEntity {
     @Column
     private int totalVenta;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "client_id", referencedColumnName = "id")
+    @JoinColumn(name = "idCli", referencedColumnName = "id")
     private ClientEntity cliente;
 
     @Column
     private Date fchCompra;
-
+    
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "vendedor_id", referencedColumnName = "nroVendedor")
+    @JoinColumn(name = "idVendedor", referencedColumnName = "nroVendedor")
     private VendedorEntity vendedor;
 
     public int getNroVenta() {

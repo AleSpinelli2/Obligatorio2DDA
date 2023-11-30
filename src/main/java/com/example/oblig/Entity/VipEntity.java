@@ -5,6 +5,7 @@ import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Entity
 public class VipEntity extends ClientEntity {
@@ -19,9 +20,9 @@ public class VipEntity extends ClientEntity {
         this.fchIngreso = fchIngreso;
     }
 
-    public VipEntity(int idCli, String nombre, String direccion, int telefono, Set<VentaEntity> ventaProductos,
+    public VipEntity(int id, String nombre, String direccion, int telefono, Set<VentaEntity> ventaProductos,
             Date fchIngreso) {
-        super(idCli, nombre, direccion, telefono, ventaProductos);
+        super(id, nombre, direccion, telefono, ventaProductos);
         this.fchIngreso = fchIngreso;
     }
 

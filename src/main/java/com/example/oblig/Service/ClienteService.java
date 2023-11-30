@@ -8,7 +8,7 @@ import com.example.oblig.Entity.VipEntity;
 import com.example.oblig.Utils.AppException;
 
 public interface ClienteService {
-    public ClientEntity save(ClientEntity ClienteEntity) throws AppException;
+    public ClientEntity save(ClientEntity clienteEntity) throws AppException;
 
     public String delete(int ci) throws AppException;
 

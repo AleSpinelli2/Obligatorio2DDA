@@ -27,15 +27,28 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
-    @PostMapping
-    public ResponseEntity<?> AddClient(@RequestBody ClientEntity clienteEntity) {
+    @PostMapping("/vip")
+    public ResponseEntity<?> AddClient(@RequestBody VipEntity vipEntity) {
         try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.save(clienteEntity));
+            return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.save(vipEntity));
         } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del sistema.");
+        }
+    }
+
+    @PostMapping("/regular")
+    public ResponseEntity<?> AddClient(@RequestBody RegularEntity regularEntity) {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.save(regularEntity));
+        } catch (AppException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error interno del sistema." + e.getMessage());
         }
     }
 

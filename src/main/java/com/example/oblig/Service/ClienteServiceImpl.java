@@ -20,14 +20,14 @@ public class ClienteServiceImpl implements ClienteService {
     private ClienteRepository clienteRepository;
 
     @Override
-    public ClientEntity save(ClientEntity ClienteEntity) throws AppException {
+    public ClientEntity save(ClientEntity clienteEntity) throws AppException {
 
-        if (clienteRepository.existsById(ClienteEntity.getIdCli())) {
+        if (clienteRepository.existsById(clienteEntity.getIdCli())) {
             throw new AppException(
                     "Este cliente ya se encuentra en la base de datos y esto no se tendria que mostrar porque el id es autoincremental");
         }
 
-        return clienteRepository.save(ClienteEntity);
+        return clienteRepository.save(clienteEntity);
     }
 
     @Override
@@ -57,18 +57,18 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public List<VipEntity> getByVip() throws AppException {
         return clienteRepository.findAllVip();
-                // .findAll().stream()
-                // .filter(cliente -> cliente instanceof VipEntity)
-                // .map(cliente -> (VipEntity) cliente)
-                // .collect(Collectors.toList());
+        // .findAll().stream()
+        // .filter(cliente -> cliente instanceof VipEntity)
+        // .map(cliente -> (VipEntity) cliente)
+        // .collect(Collectors.toList());
     }
 
     @Override
     public List<RegularEntity> getByRegular() throws AppException {
         return clienteRepository.findAllRegular();
-    // findAll().stream()
-    //             .filter(cliente -> cliente instanceof RegularEntity)
-    //             .map(cliente -> (ClientEntity) cliente)
-    //             .collect(Collectors.toList());
-     }
+        // findAll().stream()
+        // .filter(cliente -> cliente instanceof RegularEntity)
+        // .map(cliente -> (ClientEntity) cliente)
+        // .collect(Collectors.toList());
+    }
 }

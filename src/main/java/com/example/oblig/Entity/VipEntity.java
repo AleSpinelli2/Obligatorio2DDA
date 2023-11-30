@@ -20,9 +20,9 @@ public class VipEntity extends ClientEntity {
         this.fchIngreso = fchIngreso;
     }
 
-    public VipEntity(int idCli, String nombre, String direccion, int telefono, Set<VentaEntity> ventaProductos,
+    public VipEntity(int id, String nombre, String direccion, int telefono, Set<VentaEntity> ventaProductos,
             Date fchIngreso) {
-        super(idCli, nombre, direccion, telefono, ventaProductos);
+        super(id, nombre, direccion, telefono, ventaProductos);
         this.fchIngreso = fchIngreso;
     }
 

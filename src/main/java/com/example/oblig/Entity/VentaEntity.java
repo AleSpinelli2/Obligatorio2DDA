@@ -87,6 +87,12 @@ public class VentaEntity {
     public void setVendedor(VendedorEntity vendedor) {
         this.vendedor = vendedor;
     }
+    
+    @Override
+    public String toString() {
+        return "VentaEntity [nroVenta=" + nroVenta + ", listaProductos=" + listaProductos + ", totalVenta=" + totalVenta
+                + ", cliente=" + cliente + ", fchCompra=" + fchCompra + ", vendedor=" + vendedor + "]";
+    }
 
     public VentaEntity(int nroVenta, Set<ProductEntity> listaProductos, int totalVenta,
             Date fchCompra, ClientEntity cliente, VendedorEntity vendedor) {

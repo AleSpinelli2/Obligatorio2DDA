@@ -14,7 +14,7 @@ import com.example.oblig.Utils.AppException;
 
 @Service
 public interface VentaService {
-    public VentaEntity agregarVenta(VentaEntity ventaEntity) throws AppException;
+    public VentaEntity agregarVenta(VentaEntity ventaEntity, int idCliente, int nroVendedor) throws AppException;
 
     public VentaEntity modificarVenta(VentaEntity ventaEntity) throws AppException;
 

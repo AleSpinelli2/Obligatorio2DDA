@@ -75,7 +75,7 @@ public class ClientEntity {
     public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
-
+    
     public ClientEntity(int idCli, String nombre, String direccion, int telefono, Set<VentaEntity> ventaProductos) {
         this.id = idCli;
         this.nombre = nombre;

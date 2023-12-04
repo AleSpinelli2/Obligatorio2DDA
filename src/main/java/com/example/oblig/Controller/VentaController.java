@@ -25,10 +25,10 @@ public class VentaController {
     @Autowired
     private VentaService ventaService;
 
-    @PostMapping
-    public ResponseEntity<?> agregarVenta(@RequestBody VentaEntity ventaEntity) {
+    @PostMapping("{idCliente}/{nroVendedor}")
+    public ResponseEntity<?> agregarVenta(@RequestBody VentaEntity ventaEntity, @PathVariable int idCliente, @PathVariable int nroVendedor) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(ventaService.agregarVenta(ventaEntity));
+            return ResponseEntity.status(HttpStatus.OK).body(ventaService.agregarVenta(ventaEntity,idCliente,nroVendedor));
         } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {

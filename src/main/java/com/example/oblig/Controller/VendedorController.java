@@ -68,4 +68,15 @@ public class VendedorController {
         }
     }
 
+    @GetMapping("LogIn/{name}/{password}")
+    public ResponseEntity<?> LogInCliente(@PathVariable String name , @PathVariable String password) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(vendedorService.findByNameAndPassword(name, password));
+        } catch (AppException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del sistema.");
+        }
+    }
+
 }

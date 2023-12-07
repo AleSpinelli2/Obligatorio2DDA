@@ -7,8 +7,8 @@ import jakarta.persistence.Table;
 
 @Entity
 public class RegularEntity extends ClientEntity {
-    public RegularEntity(int id, String nombre, String direccion, int telefono, Set<VentaEntity> ventaProductos) {
-        super(id, nombre, direccion, telefono, ventaProductos);
+    public RegularEntity(int id, String nombre, String direccion, int telefono) {
+        super(id, nombre, direccion, telefono);
     }
 
     public RegularEntity() {

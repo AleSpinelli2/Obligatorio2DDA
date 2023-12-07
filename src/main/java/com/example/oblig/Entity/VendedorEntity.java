@@ -21,10 +21,6 @@ public class VendedorEntity {
     @Column
     private String nombre;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "vendedor")
-    private Set<VentaEntity> ventas = new HashSet<>();;
-
     public int getNroVendedor() {
         return nroVendedor;
     }
@@ -41,18 +37,9 @@ public class VendedorEntity {
         this.nombre = nombre;
     }
 
-    public Set<VentaEntity> getVendedor() {
-        return ventas;
-    }
-
-    public void setVendedor(Set<VentaEntity> ventas) {
-        this.ventas = ventas;
-    }
-
-    public VendedorEntity(int nroVendedor, String nombre, Set<VentaEntity> ventas) {
+    public VendedorEntity(int nroVendedor, String nombre) {
         this.nroVendedor = nroVendedor;
         this.nombre = nombre;
-        this.ventas = ventas;
     }
 
     public VendedorEntity() {

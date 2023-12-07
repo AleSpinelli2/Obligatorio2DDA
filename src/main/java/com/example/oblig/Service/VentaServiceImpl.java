@@ -31,9 +31,9 @@ public class VentaServiceImpl implements VentaService {
     public VendedorRepository vendedorRepository;
 
     @Override
-    public VentaEntity agregarVenta(VentaEntity ventaEntity, int idCliente,int nroVendedor ) throws AppException {
+    public VentaEntity agregarVenta(VentaEntity ventaEntity, int idCliente, int nroVendedor) throws AppException {
         if (!ventaRepository.existsById(ventaEntity.getNroVenta())) {
-            if (esClienteVipConDescuento(ventaEntity)) {
+            if (esClienteVipConDescuento(ventaEntity, idCliente)) {
                 aplicarDescuentoVentaVip(ventaEntity);
             }
             ventaEntity.setCliente(clienteRepository.findById(idCliente).get());
@@ -71,9 +71,14 @@ public class VentaServiceImpl implements VentaService {
     }
 
     @Override
-    public Set<VentaEntity> getProductosByCliente(ClientEntity cliente) {
-
-        return cliente.getVenta_productos();
+    public Set<VentaEntity> getCantidadCompras(int idCliente) {
+        Set<VentaEntity> cantidadCompras = new HashSet<>();
+        for (VentaEntity unaVenta : ventaRepository.findAll()) {
+            if (unaVenta.getCliente().getIdCli() == idCliente) {
+                cantidadCompras.add(unaVenta);
+            }
+        }
+        return cantidadCompras;
     }
 
     public Set<VentaEntity> findByFchCompra(Date fchCompra) {
@@ -89,9 +94,9 @@ public class VentaServiceImpl implements VentaService {
         return ventasPorFecha;
     }
 
-    private boolean esClienteVipConDescuento(VentaEntity ventaEntity) {
+    private boolean esClienteVipConDescuento(VentaEntity ventaEntity, int idCliente) {
         return ventaEntity.getCliente() instanceof VipEntity
-                && ventaEntity.getCliente().getVenta_productos().size() % 3 == 0;
+                && (getCantidadCompras(idCliente)).size() % 3 == 0;
     }
 
     private void aplicarDescuentoVentaVip(VentaEntity ventaEntity) {

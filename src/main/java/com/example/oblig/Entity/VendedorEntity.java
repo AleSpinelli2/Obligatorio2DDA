@@ -20,6 +20,9 @@ public class VendedorEntity {
 
     @Column
     private String nombre;
+   
+    @Column
+    private String password;
 
     public int getNroVendedor() {
         return nroVendedor;
@@ -45,18 +48,9 @@ public class VendedorEntity {
         this.password = Password;
     }
 
-    public Set<VentaEntity> getVendedor() {
-        return ventas;
-    }
-
-    public void setVendedor(Set<VentaEntity> ventas) {
-        this.ventas = ventas;
-    }
-
-    public VendedorEntity(int nroVendedor, String nombre, String Password, Set<VentaEntity> ventas) {
+    public VendedorEntity(int nroVendedor, String nombre, String Password) {
         this.nroVendedor = nroVendedor;
         this.nombre = nombre;
-        this.ventas = ventas;
         this.password = Password;
     }
 

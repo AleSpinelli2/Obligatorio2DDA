@@ -20,7 +20,8 @@ public class VendedorEntity {
 
     @Column
     private String nombre;
-
+    @Column
+    
     public int getNroVendedor() {
         return nroVendedor;
     }

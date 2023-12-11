@@ -35,11 +35,12 @@ public class VentaServiceImpl implements VentaService {
         if (!ventaRepository.existsById(ventaEntity.getNroVenta())) {
             if (esClienteVipConDescuento(ventaEntity, idCliente)) {
                 aplicarDescuentoVentaVip(ventaEntity);
+                System.out.println("es vip" + ventaEntity.toString() );
             }
             ventaEntity.setCliente(clienteRepository.findById(idCliente).get());
             ventaEntity.setVendedor(vendedorRepository.findById(nroVendedor).get());
             controlStock(ventaEntity);
-            System.out.println(ventaEntity.toString());
+            System.out.println("No es vip"+ventaEntity.toString());
             return ventaRepository.save(ventaEntity);
         }
         throw new AppException("Esta venta ya existe capo");
@@ -77,6 +78,7 @@ public class VentaServiceImpl implements VentaService {
         for (VentaEntity unaVenta : ventaRepository.findAll()) {
             if (unaVenta.getCliente().getIdCli() == idCliente) {
                 cantidadCompras++;
+              System.out.println(cantidadCompras);
             }
         }
         return cantidadCompras;
@@ -96,9 +98,9 @@ public class VentaServiceImpl implements VentaService {
     }
 
     private boolean esClienteVipConDescuento(VentaEntity ventaEntity, int idCliente) {
-        int comprasCliente = getCantidadCompras(idCliente);
+        int cantidadCompras = getCantidadCompras(idCliente);
         return ventaEntity.getCliente() instanceof VipEntity
-                && comprasCliente % 3 == 0;
+                && cantidadCompras % 3 == 0;
     }
 
     private void aplicarDescuentoVentaVip(VentaEntity ventaEntity) {

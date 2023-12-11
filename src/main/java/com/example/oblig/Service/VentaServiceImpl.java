@@ -36,10 +36,10 @@ public class VentaServiceImpl implements VentaService {
             if (esClienteVipConDescuento(ventaEntity, idCliente)) {
                 aplicarDescuentoVentaVip(ventaEntity);
             }
-            ventaEntity.setCliente(clienteRepository.findById(idCliente).get());
-            ventaEntity.setVendedor(vendedorRepository.findById(nroVendedor).get());
+            ventaEntity.setCliente(clienteRepository.findById(idCliente).orElseThrow(() -> new AppException("Cliente no encontrado")));
+            ventaEntity.setVendedor(vendedorRepository.findById(nroVendedor).orElseThrow(() -> new AppException("Vendedor no encontrado")));
             controlStock(ventaEntity);
-            System.out.println(ventaEntity.toString());
+           //log.info("Nueva venta {}",ventaEntity.toString());
             return ventaRepository.save(ventaEntity);
         }
         throw new AppException("Esta venta ya existe capo");
@@ -70,33 +70,35 @@ public class VentaServiceImpl implements VentaService {
         throw new AppException("No se encontro esta venta");
     }
 
-    @Override
-    public Set<VentaEntity> getCantidadCompras(int idCliente) {
-        Set<VentaEntity> cantidadCompras = new HashSet<>();
-        for (VentaEntity unaVenta : ventaRepository.findAll()) {
-            if (unaVenta.getCliente().getIdCli() == idCliente) {
-                cantidadCompras.add(unaVenta);
-            }
-        }
-        return cantidadCompras;
-    }
+   
 
     public Set<VentaEntity> findByFchCompra(Date fchCompra) {
-
         Set<VentaEntity> ventasPorFecha = new HashSet<>();
-
         for (VentaEntity unaVenta : ventaRepository.findAll()) {
             if (unaVenta.getFchCompra() == fchCompra) {
                 ventasPorFecha.add(unaVenta);
             }
         }
-
         return ventasPorFecha;
     }
 
+     @Override
+    public int getCantidadCompras(int idCliente) {
+        // Set<VentaEntity> cantidadCompras = new HashSet<>();
+            int cantidadCompras = 0;
+        for (VentaEntity unaVenta : ventaRepository.findAll()) {
+            if (unaVenta.getCliente().getIdCli() == idCliente) {
+                cantidadCompras ++;
+                System.out.println(cantidadCompras);
+            }
+        }
+        return cantidadCompras;
+    }
+
     private boolean esClienteVipConDescuento(VentaEntity ventaEntity, int idCliente) {
+        int comprasCliente = getCantidadCompras(idCliente);
         return ventaEntity.getCliente() instanceof VipEntity
-                && (getCantidadCompras(idCliente)).size() % 3 == 0;
+                && comprasCliente % 3 == 0;
     }
 
     private void aplicarDescuentoVentaVip(VentaEntity ventaEntity) {

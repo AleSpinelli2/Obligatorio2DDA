@@ -47,6 +47,11 @@ public class VendedorEntity {
     public void setPassword(String Password){
         this.password = Password;
     }
+    
+    @Override
+    public String toString() {
+        return "VendedorEntity [nroVendedor=" + nroVendedor + ", nombre=" + nombre + ", password=" + password + "]";
+    }
 
     public VendedorEntity(int nroVendedor, String nombre, String Password) {
         this.nroVendedor = nroVendedor;

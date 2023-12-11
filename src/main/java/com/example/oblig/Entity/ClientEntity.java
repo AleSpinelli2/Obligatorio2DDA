@@ -63,6 +63,12 @@ public class ClientEntity {
     public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
+    
+    @Override
+    public String toString() {
+        return "ClientEntity [id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono
+                + "]";
+    }
 
     public ClientEntity(int idCli, String nombre, String direccion, int telefono) {
         this.id = idCli;

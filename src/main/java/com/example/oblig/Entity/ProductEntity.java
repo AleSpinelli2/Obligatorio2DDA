@@ -72,6 +72,12 @@ public class ProductEntity {
         this.cantStock = cantStock;
     }
 
+    @Override
+    public String toString() {
+        return "ProductEntity [codProd=" + codProd + ", nombre=" + nombre + ", descripcion=" + descripcion + ", precio="
+                + precio + ", cantStock=" + cantStock + ", imageUrl=" + imageUrl + "]";
+    }
+
     public ProductEntity(int codProd, String nombre, String descripcion, int precio, int cantStock) {
         this.codProd = codProd;
         this.nombre = nombre;

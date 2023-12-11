@@ -71,11 +71,12 @@ public class VentaServiceImpl implements VentaService {
     }
 
     @Override
-    public Set<VentaEntity> getCantidadCompras(int idCliente) {
-        Set<VentaEntity> cantidadCompras = new HashSet<>();
+    public int getCantidadCompras(int idCliente) {
+        // Set<VentaEntity> cantidadCompras = new HashSet<>();
+        int cantidadCompras = 0;
         for (VentaEntity unaVenta : ventaRepository.findAll()) {
             if (unaVenta.getCliente().getIdCli() == idCliente) {
-                cantidadCompras.add(unaVenta);
+                cantidadCompras++;
             }
         }
         return cantidadCompras;
@@ -95,8 +96,9 @@ public class VentaServiceImpl implements VentaService {
     }
 
     private boolean esClienteVipConDescuento(VentaEntity ventaEntity, int idCliente) {
+        int comprasCliente = getCantidadCompras(idCliente);
         return ventaEntity.getCliente() instanceof VipEntity
-                && (getCantidadCompras(idCliente)).size() % 3 == 0;
+                && comprasCliente % 3 == 0;
     }
 
     private void aplicarDescuentoVentaVip(VentaEntity ventaEntity) {

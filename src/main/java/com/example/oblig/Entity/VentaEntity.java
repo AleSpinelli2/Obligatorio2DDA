@@ -27,7 +27,7 @@ public class VentaEntity {
     @Column
     private int totalVenta;
 
-    @JsonIgnore
+  
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idCli", referencedColumnName = "id")
     private ClientEntity cliente;
@@ -35,7 +35,7 @@ public class VentaEntity {
     @Column
     private Date fchCompra;
     
-    @JsonIgnore
+   
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idVendedor", referencedColumnName = "nroVendedor")
     private VendedorEntity vendedor;

@@ -20,8 +20,10 @@ public class VendedorEntity {
 
     @Column
     private String nombre;
+   
     @Column
-    
+    private String password;
+
     public int getNroVendedor() {
         return nroVendedor;
     }
@@ -38,9 +40,18 @@ public class VendedorEntity {
         this.nombre = nombre;
     }
 
-    public VendedorEntity(int nroVendedor, String nombre) {
+    public String getPassword(){
+        return password;
+    }
+
+    public void setPassword(String Password){
+        this.password = Password;
+    }
+
+    public VendedorEntity(int nroVendedor, String nombre, String Password) {
         this.nroVendedor = nroVendedor;
         this.nombre = nombre;
+        this.password = Password;
     }
 
     public VendedorEntity() {

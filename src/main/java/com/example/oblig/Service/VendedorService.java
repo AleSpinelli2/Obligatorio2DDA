@@ -14,4 +14,6 @@ public interface VendedorService {
     public VendedorEntity update(VendedorEntity vendedorEntity) throws AppException;
 
     public Optional<VendedorEntity> getByCod(int nroVendedor) throws AppException;
+
+    public Optional<VendedorEntity> findByNameAndPassword(String name , String password) throws AppException;
 }

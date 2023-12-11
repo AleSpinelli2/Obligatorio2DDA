@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.oblig.Entity.LoginRequest;
 import com.example.oblig.Entity.VendedorEntity;
 import com.example.oblig.Service.VendedorService;
 import com.example.oblig.Utils.AppException;
@@ -61,6 +62,17 @@ public class VendedorController {
     public ResponseEntity<?> traerVendedor(@PathVariable int nroVendedor) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(vendedorService.getByCod(nroVendedor));
+        } catch (AppException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del sistema.");
+        }
+    }
+
+    @PostMapping("LogIn")
+    public ResponseEntity<?> logInCliente(@RequestBody LoginRequest loginRequest) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(vendedorService.findByNameAndPassword(loginRequest.getName(), loginRequest.getPassword()));
         } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {

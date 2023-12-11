@@ -43,4 +43,12 @@ public class VendedorServiceImpl implements VendedorService {
         throw new AppException("El numero no corresponde a un vendedor");
     }
 
+    public Optional<VendedorEntity> findByNameAndPassword(String name , String password) throws AppException{
+        try{
+            return vendedorRepository.findByNombreAndPassword(name, password);  
+        }catch(Exception e){
+                throw new AppException(e.getMessage());
+        }
+    }
+
 }

@@ -32,18 +32,6 @@ public class ClientEntity {
     @Column
     private int telefono;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "cliente")
-    private Set<VentaEntity> ventaProductos = new HashSet<VentaEntity>();
-
-    public Set<VentaEntity> getVenta_productos() {
-        return ventaProductos;
-    }
-
-    public void setVenta_productos(Set<VentaEntity> venta_productos) {
-        this.ventaProductos = venta_productos;
-    }
-
     public int getIdCli() {
         return id;
     }
@@ -75,13 +63,12 @@ public class ClientEntity {
     public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
-    
-    public ClientEntity(int idCli, String nombre, String direccion, int telefono, Set<VentaEntity> ventaProductos) {
+
+    public ClientEntity(int idCli, String nombre, String direccion, int telefono) {
         this.id = idCli;
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
-        this.ventaProductos = ventaProductos;
     }
 
     public ClientEntity() {

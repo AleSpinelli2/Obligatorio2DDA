@@ -21,13 +21,6 @@ public class VendedorEntity {
     @Column
     private String nombre;
 
-    @Column
-    private String password;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "vendedor")
-    private Set<VentaEntity> ventas = new HashSet<>();;
-
     public int getNroVendedor() {
         return nroVendedor;
     }

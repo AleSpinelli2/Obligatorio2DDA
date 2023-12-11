@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.oblig.Entity.ClientEntity;
 import com.example.oblig.Entity.VentaEntity;
 import com.example.oblig.Service.VentaService;
 import com.example.oblig.Utils.AppException;
@@ -26,14 +27,16 @@ public class VentaController {
     private VentaService ventaService;
 
     @PostMapping("{idCliente}/{nroVendedor}")
-    public ResponseEntity<?> agregarVenta(@RequestBody VentaEntity ventaEntity, @PathVariable int idCliente, @PathVariable int nroVendedor) {
+    public ResponseEntity<?> agregarVenta(@RequestBody VentaEntity ventaEntity, @PathVariable int idCliente,
+            @PathVariable int nroVendedor) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(ventaService.agregarVenta(ventaEntity,idCliente,nroVendedor));
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(ventaService.agregarVenta(ventaEntity, idCliente, nroVendedor));
         } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error interno del sistema" + e.getMessage());
+                    .body("Error interno del sistema " + e.getMessage());
         }
     }
 
@@ -80,4 +83,16 @@ public class VentaController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno en el sistema");
         }
     }
+
+    @GetMapping("{idCliente}")
+    public ResponseEntity<?> getCantidadCompras(@PathVariable int idCliente) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(ventaService.getCantidadCompras(idCliente));
+        } catch (AppException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno en el sistema");
+        }
+    }
+
 }

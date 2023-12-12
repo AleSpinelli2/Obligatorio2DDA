@@ -16,6 +16,7 @@ import com.example.oblig.Entity.ProductEntity;
 import com.example.oblig.Entity.VentaEntity;
 import com.example.oblig.Entity.VipEntity;
 import com.example.oblig.Repository.ClienteRepository;
+import com.example.oblig.Repository.ProductRepository;
 import com.example.oblig.Repository.VendedorRepository;
 import com.example.oblig.Repository.VentaRepository;
 import com.example.oblig.Utils.AppException;
@@ -29,7 +30,8 @@ public class VentaServiceImpl implements VentaService {
     public ClienteRepository clienteRepository;
     @Autowired
     public VendedorRepository vendedorRepository;
-
+    @Autowired
+    public ProductRepository productRepository;
     @Override
     public VentaEntity agregarVenta(VentaEntity ventaEntity, int idCliente, int nroVendedor) throws AppException {
         if (!ventaRepository.existsById(ventaEntity.getNroVenta())) {
@@ -39,9 +41,11 @@ public class VentaServiceImpl implements VentaService {
             }
             ventaEntity.setCliente(clienteRepository.findById(idCliente).get());
             ventaEntity.setVendedor(vendedorRepository.findById(nroVendedor).get());
-            controlStock(ventaEntity);
-            System.out.println("No es vip"+ventaEntity.toString());
-            return ventaRepository.save(ventaEntity);
+           
+            System.out.println("cantidad Stock"+ventaEntity.getListaProductos());
+            VentaEntity ventaEntity2 = ventaRepository.save(ventaEntity);
+             controlStock(ventaEntity2);
+             return ventaEntity2;
         }
         throw new AppException("Esta venta ya existe capo");
     }
@@ -111,6 +115,7 @@ public class VentaServiceImpl implements VentaService {
     private void controlStock(VentaEntity ventaEntity) {
         for (ProductEntity producto : ventaEntity.getListaProductos()) {
             producto.setCantStock(producto.getCantStock() - 1);
+            productRepository.save(producto);
         }
     }
 }

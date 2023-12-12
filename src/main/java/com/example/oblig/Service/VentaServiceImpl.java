@@ -99,19 +99,6 @@ public class VentaServiceImpl implements VentaService {
         return ventasPorFecha;
     }
 
-    @Override
-    public int getCantidadCompras(int idCliente) {
-        // Set<VentaEntity> cantidadCompras = new HashSet<>();
-        int cantidadCompras = 0;
-        for (VentaEntity unaVenta : ventaRepository.findAll()) {
-            if (unaVenta.getCliente().getIdCli() == idCliente) {
-                cantidadCompras++;
-                System.out.println(cantidadCompras);
-            }
-        }
-        return cantidadCompras;
-    }
-
     private boolean esClienteVipConDescuento(VentaEntity ventaEntity, int idCliente) {
         int cantidadCompras = getCantidadCompras(idCliente);
         return clienteRepository.buscarVip(idCliente) != null

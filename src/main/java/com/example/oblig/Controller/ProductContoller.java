@@ -61,7 +61,7 @@ public class ProductContoller {
     }
 
     @GetMapping("{codProd}")
-    public ResponseEntity<?> buscarProducto(@PathVariable int codProd) {
+    public ResponseEntity<?> getProduct(@PathVariable int codProd) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(productService.getByCod(codProd));
         } catch (AppException e) {

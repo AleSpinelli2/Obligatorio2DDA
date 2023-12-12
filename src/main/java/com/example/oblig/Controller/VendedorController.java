@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.oblig.Entity.LoginRequest;
 import com.example.oblig.Entity.VendedorEntity;
 import com.example.oblig.Service.VendedorService;
 import com.example.oblig.Utils.AppException;
@@ -68,10 +69,10 @@ public class VendedorController {
         }
     }
 
-    @GetMapping("LogIn/{name}/{password}")
-    public ResponseEntity<?> LogInCliente(@PathVariable String name , @PathVariable String password) {
+    @PostMapping("LogIn")
+    public ResponseEntity<?> logInCliente(@RequestBody LoginRequest loginRequest) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(vendedorService.findByNameAndPassword(name, password));
+            return ResponseEntity.status(HttpStatus.OK).body(vendedorService.findByNameAndPassword(loginRequest.getName(), loginRequest.getPassword()));
         } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {

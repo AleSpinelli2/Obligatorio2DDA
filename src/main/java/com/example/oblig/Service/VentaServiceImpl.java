@@ -16,6 +16,7 @@ import com.example.oblig.Entity.ProductEntity;
 import com.example.oblig.Entity.VentaEntity;
 import com.example.oblig.Entity.VipEntity;
 import com.example.oblig.Repository.ClienteRepository;
+import com.example.oblig.Repository.ProductRepository;
 import com.example.oblig.Repository.VendedorRepository;
 import com.example.oblig.Repository.VentaRepository;
 import com.example.oblig.Utils.AppException;
@@ -29,18 +30,23 @@ public class VentaServiceImpl implements VentaService {
     public ClienteRepository clienteRepository;
     @Autowired
     public VendedorRepository vendedorRepository;
+    @Autowired
+    public ProductRepository productRepository;
 
     @Override
     public VentaEntity agregarVenta(VentaEntity ventaEntity, int idCliente, int nroVendedor) throws AppException {
         if (!ventaRepository.existsById(ventaEntity.getNroVenta())) {
             if (esClienteVipConDescuento(ventaEntity, idCliente)) {
                 aplicarDescuentoVentaVip(ventaEntity);
+                System.out.println("es vip" + ventaEntity.toString());
             }
-            ventaEntity.setCliente(clienteRepository.findById(idCliente).orElseThrow(() -> new AppException("Cliente no encontrado")));
-            ventaEntity.setVendedor(vendedorRepository.findById(nroVendedor).orElseThrow(() -> new AppException("Vendedor no encontrado")));
-            controlStock(ventaEntity);
-           //log.info("Nueva venta {}",ventaEntity.toString());
-            return ventaRepository.save(ventaEntity);
+            ventaEntity.setCliente(clienteRepository.findById(idCliente).get());
+            ventaEntity.setVendedor(vendedorRepository.findById(nroVendedor).get());
+
+            System.out.println("cantidad Stock" + ventaEntity.getListaProductos());
+            VentaEntity ventaEntity2 = ventaRepository.save(ventaEntity);
+            controlStock(ventaEntity2);
+            return ventaEntity2;
         }
         throw new AppException("Esta venta ya existe capo");
     }
@@ -70,7 +76,18 @@ public class VentaServiceImpl implements VentaService {
         throw new AppException("No se encontro esta venta");
     }
 
-   
+    @Override
+    public int getCantidadCompras(int idCliente) {
+        // Set<VentaEntity> cantidadCompras = new HashSet<>();
+        int cantidadCompras = 0;
+        for (VentaEntity unaVenta : ventaRepository.findAll()) {
+            if (unaVenta.getCliente().getIdCli() == idCliente) {
+                cantidadCompras++;
+                System.out.println(cantidadCompras);
+            }
+        }
+        return cantidadCompras;
+    }
 
     public Set<VentaEntity> findByFchCompra(Date fchCompra) {
         Set<VentaEntity> ventasPorFecha = new HashSet<>();
@@ -82,13 +99,13 @@ public class VentaServiceImpl implements VentaService {
         return ventasPorFecha;
     }
 
-     @Override
+    @Override
     public int getCantidadCompras(int idCliente) {
         // Set<VentaEntity> cantidadCompras = new HashSet<>();
-            int cantidadCompras = 0;
+        int cantidadCompras = 0;
         for (VentaEntity unaVenta : ventaRepository.findAll()) {
             if (unaVenta.getCliente().getIdCli() == idCliente) {
-                cantidadCompras ++;
+                cantidadCompras++;
                 System.out.println(cantidadCompras);
             }
         }
@@ -96,9 +113,9 @@ public class VentaServiceImpl implements VentaService {
     }
 
     private boolean esClienteVipConDescuento(VentaEntity ventaEntity, int idCliente) {
-        int comprasCliente = getCantidadCompras(idCliente);
-        return ventaEntity.getCliente() instanceof VipEntity
-                && comprasCliente % 3 == 0;
+        int cantidadCompras = getCantidadCompras(idCliente);
+        return clienteRepository.buscarVip(idCliente) != null
+                && cantidadCompras % 3 == 0;
     }
 
     private void aplicarDescuentoVentaVip(VentaEntity ventaEntity) {
@@ -109,6 +126,7 @@ public class VentaServiceImpl implements VentaService {
     private void controlStock(VentaEntity ventaEntity) {
         for (ProductEntity producto : ventaEntity.getListaProductos()) {
             producto.setCantStock(producto.getCantStock() - 1);
+            productRepository.save(producto);
         }
     }
 }

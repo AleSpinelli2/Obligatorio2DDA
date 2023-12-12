@@ -21,7 +21,7 @@ public interface VentaService {
 
     public Optional<VentaEntity> buscarVenta(int nroVenta) throws AppException;
 
-    public Set<VentaEntity> getCantidadCompras(int idCliente) throws AppException;
+    public int getCantidadCompras(int idCliente) throws AppException;
 
     public Set<VentaEntity> findByFchCompra(Date fchCompra) throws AppException;
 }

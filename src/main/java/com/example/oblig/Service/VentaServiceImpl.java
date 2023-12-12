@@ -99,7 +99,7 @@ public class VentaServiceImpl implements VentaService {
 
     private boolean esClienteVipConDescuento(VentaEntity ventaEntity, int idCliente) {
         int cantidadCompras = getCantidadCompras(idCliente);
-        return ventaEntity.getCliente() instanceof VipEntity
+        return clienteRepository.buscarVip(idCliente) != null 
                 && cantidadCompras % 3 == 0;
     }
 

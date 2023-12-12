@@ -53,7 +53,7 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findBycantStockLessThan(cantidad);
     }
 
-    public List<ProductEntity> getAllProducts(ProductEntity productEntity) throws AppException {
+    public List<ProductEntity> getAllProducts() throws AppException {
         return productRepository.findAll();
     }
 }

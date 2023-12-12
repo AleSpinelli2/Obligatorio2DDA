@@ -23,6 +23,4 @@ public interface ClienteRepository extends JpaRepository<ClientEntity, Integer> 
   @Query(value = "SELECT a FROM RegularEntity a")
   List<RegularEntity> findAllRegular();
 
-  @Query (value = "SELECT v FROM ClientEntity v WHERE TYPE(v) = VipEntity AND v.id = :id")
-  VipEntity buscarVip(int id);
 }

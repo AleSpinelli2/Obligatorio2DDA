@@ -1,6 +1,7 @@
 package com.example.oblig.Controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -82,13 +83,15 @@ public class ProductContoller {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllProducts(@RequestBody ProductEntity productEntity) {
+    public ResponseEntity<?> getAllProducts() {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(productService.getAllProducts(productEntity));
+            List<ProductEntity> products = productService.getAllProducts();
+            return ResponseEntity.status(HttpStatus.OK).body(Map.of("data", products));
         } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno " + e.getMessage());
         }
     }
+    
 }

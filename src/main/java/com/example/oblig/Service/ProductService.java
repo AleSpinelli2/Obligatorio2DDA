@@ -18,5 +18,5 @@ public interface ProductService {
 
     public List<ProductEntity> listarProductosStockMenor(int cantidad) throws AppException;
 
-    public List<ProductEntity> getAllProducts(ProductEntity productEntity) throws AppException;
+    public List<ProductEntity> getAllProducts() throws AppException;
 }

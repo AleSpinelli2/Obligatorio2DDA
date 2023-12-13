@@ -1,6 +1,7 @@
 package com.example.oblig.Controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -103,7 +104,7 @@ public class ClienteController {
     public ResponseEntity<?> getClientesVip() {
         try {
             List<VipEntity> clientesVip = clienteService.getByVip();
-            return ResponseEntity.ok(clientesVip);
+            return ResponseEntity.status(HttpStatus.OK).body(Map.of("data", clientesVip));
         } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
@@ -114,8 +115,8 @@ public class ClienteController {
     @GetMapping("/regular")
     public ResponseEntity<?> getClientesRegular() {
         try {
-            List<RegularEntity> clientesVip = clienteService.getByRegular();
-            return ResponseEntity.ok(clientesVip);
+            List<RegularEntity> clientesRegulares = clienteService.getByRegular();
+              return ResponseEntity.status(HttpStatus.OK).body(Map.of("data", clientesRegulares));
         } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {

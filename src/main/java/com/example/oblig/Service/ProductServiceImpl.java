@@ -36,6 +36,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductEntity update(ProductEntity productEntity) throws AppException {
         if (productRepository.existsById(productEntity.getCodProd())) {
+            productEntity.setCantStock(productEntity.getCantStock());
+            productEntity.setNombre(productEntity.getNombre());
+            productEntity.setDescripcion(productEntity.getDescripcion());
+            productEntity.setImageUrl(productEntity.getImageUrl());
+            productEntity.setPrecio(productEntity.getPrecio());
+
             return productRepository.save(productEntity);
         }
         throw new AppException("El producto no se modifico o no existe");

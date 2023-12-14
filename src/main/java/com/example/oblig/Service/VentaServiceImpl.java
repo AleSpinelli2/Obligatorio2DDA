@@ -78,7 +78,6 @@ public class VentaServiceImpl implements VentaService {
 
     @Override
     public int getCantidadCompras(int idCliente) {
-        // Set<VentaEntity> cantidadCompras = new HashSet<>();
         int cantidadCompras = 0;
         for (VentaEntity unaVenta : ventaRepository.findAll()) {
             if (unaVenta.getCliente().getIdCli() == idCliente) {

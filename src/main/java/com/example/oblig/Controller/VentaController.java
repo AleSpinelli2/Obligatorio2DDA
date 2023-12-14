@@ -1,6 +1,9 @@
 package com.example.oblig.Controller;
 
 import java.sql.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.oblig.Entity.ClientEntity;
+import com.example.oblig.Entity.ProductEntity;
 import com.example.oblig.Entity.VentaEntity;
 import com.example.oblig.Service.VentaService;
 import com.example.oblig.Utils.AppException;
@@ -77,7 +81,8 @@ public class VentaController {
     @GetMapping("/fecha/{fchCompra}")
     public ResponseEntity<?> findByFchCompra(@PathVariable Date fchCompra) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(ventaService.findByFchCompra(fchCompra));
+            Set<VentaEntity> ventas = ventaService.findByFchCompra(fchCompra);
+            return ResponseEntity.status(HttpStatus.OK).body(Map.of("data", ventas));
         } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
@@ -85,7 +90,7 @@ public class VentaController {
         }
     }
 
-    @GetMapping("{idCliente}")
+    @GetMapping("client/{idCliente}")
     public ResponseEntity<?> getCantidadCompras(@PathVariable int idCliente) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(ventaService.getCantidadCompras(idCliente));

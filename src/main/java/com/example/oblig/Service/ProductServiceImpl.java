@@ -55,8 +55,8 @@ public class ProductServiceImpl implements ProductService {
         throw new AppException("No se encontro ese producto");
     }
 
-    public List<ProductEntity> listarProductosStockMenor(int cantidad) {
-        return productRepository.findBycantStockLessThan(cantidad);
+    public List<ProductEntity> listarProductosStockMenor(int cantStock) {
+        return productRepository.findBycantStockLessThan(cantStock);
     }
 
     public List<ProductEntity> getAllProducts() throws AppException {

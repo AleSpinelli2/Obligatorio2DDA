@@ -1,6 +1,7 @@
 package com.example.oblig.Service;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -23,5 +24,5 @@ public interface VentaService {
 
     public int getCantidadCompras(int idCliente) throws AppException;
 
-    public Set<VentaEntity> findByFchCompra(Date fchCompra) throws AppException;
+    public Set<VentaEntity> findByFchCompra(LocalDate fchCompra) throws AppException;
 }

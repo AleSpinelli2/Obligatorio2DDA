@@ -30,7 +30,7 @@ public class ProductContoller {
     @PostMapping
     public ResponseEntity<?> agregarProducto(@RequestBody ProductEntity productEntity) {
         try {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(productService.save(productEntity));
+            return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(productEntity));
         } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {

@@ -52,9 +52,10 @@ public class VentaEntity {
         return listaProductos;
     }
 
-    public void ListaProductos(ProductEntity listaProductos) {
-        this.listaProductos.add(listaProductos);
+    public void setListaProductos(ProductEntity producto) {
+        this.listaProductos.add(producto);
     }
+    
 
     public int getTotalVenta() {
         return totalVenta;

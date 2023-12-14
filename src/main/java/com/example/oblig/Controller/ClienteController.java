@@ -121,8 +121,8 @@ public class ClienteController {
     @GetMapping("/regular")
     public ResponseEntity<?> getClientesRegular() {
         try {
-            List<RegularEntity> clientesRegular = clienteService.getByRegular();
-            return ResponseEntity.status(HttpStatus.OK).body(Map.of("data", clientesRegular));
+            List<RegularEntity> clientesRegulares = clienteService.getByRegular();
+              return ResponseEntity.status(HttpStatus.OK).body(Map.of("data", clientesRegulares));
         } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {

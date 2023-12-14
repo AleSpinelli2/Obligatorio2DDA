@@ -41,7 +41,12 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public ClientEntity update(ClientEntity ClienteEntity) throws AppException {
-        return clienteRepository.save(ClienteEntity);
+        ClientEntity cliente = clienteRepository.findById(ClienteEntity.getIdCli()).get();
+        cliente.setNombre(ClienteEntity.getNombre());
+        cliente.setDireccion(ClienteEntity.getDireccion());
+        cliente.setTelefono(ClienteEntity.getTelefono());
+        clienteRepository.save(cliente);
+        return cliente;
     }
 
     @Override

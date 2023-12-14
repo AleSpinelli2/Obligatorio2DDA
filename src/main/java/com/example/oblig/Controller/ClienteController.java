@@ -66,6 +66,8 @@ public class ClienteController {
         }
     }
 
+
+
     @PutMapping
     public ResponseEntity<?> UpdateClient(@RequestBody ClientEntity clientEntity) {
         try {

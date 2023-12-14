@@ -78,8 +78,8 @@ public class ProductEntity {
                 + precio + ", cantStock=" + cantStock + ", imageUrl=" + imageUrl + "]";
     }
 
-    public ProductEntity(int codProd, String nombre, String descripcion, int precio, int cantStock) {
-        this.codProd = codProd;
+    public ProductEntity(String codProd, String nombre, String descripcion, int precio, int cantStock) {
+        this.codProd = Integer.parseInt(codProd);
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;

@@ -44,7 +44,7 @@ public class ClienteServiceImpl implements ClienteService {
         ClientEntity cliente = clienteRepository.findById(ClienteEntity.getIdCli()).get();
         cliente.setNombre(ClienteEntity.getNombre());
         cliente.setDireccion(ClienteEntity.getDireccion());
-        cliente.setTelefono(ClienteEntity.getTelefono());
+        cliente.setTelefono(ClienteEntity.getTelefono()); 
         clienteRepository.save(cliente);
         return cliente;
     }

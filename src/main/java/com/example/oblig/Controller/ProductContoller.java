@@ -30,8 +30,9 @@ public class ProductContoller {
     @PostMapping
     public ResponseEntity<?> agregarProducto(@RequestBody ProductEntity productEntity) {
         try {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(productService.save(productEntity));
+            return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(productEntity));
         } catch (AppException e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -73,11 +74,11 @@ public class ProductContoller {
         }
     }
 
-    @GetMapping("/stockMenor")
-    public ResponseEntity<?> listarProductosStockMenor(@RequestParam int cantidad) {
+    @GetMapping("/stockMenor/{cantStock}")
+    public ResponseEntity<?> listarProductosStockMenor(@PathVariable int cantStock) {
         try {
-            List<ProductEntity> productos = productService.listarProductosStockMenor(cantidad);
-            return ResponseEntity.status(HttpStatus.OK).body(productos);
+            List<ProductEntity> productos = productService.listarProductosStockMenor(cantStock);
+            return ResponseEntity.status(HttpStatus.OK).body(Map.of("data", productos));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error en el sistema");
         }

@@ -1,6 +1,9 @@
 package com.example.oblig.Controller;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -75,17 +78,19 @@ public class VentaController {
     }
 
     @GetMapping("/fecha/{fchCompra}")
-    public ResponseEntity<?> findByFchCompra(@PathVariable Date fchCompra) {
+    public ResponseEntity<?> findByFchCompra(@PathVariable LocalDate fchCompra) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(ventaService.findByFchCompra(fchCompra));
+            Set<VentaEntity> ventas = ventaService.findByFchCompra(fchCompra);
+            return ResponseEntity.status(HttpStatus.OK).body(Map.of("data", ventas));
         } catch (AppException e) {
+            System.out.println("opa la papa" + e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno en el sistema");
         }
     }
 
-    @GetMapping("{idCliente}")
+    @GetMapping("client/{idCliente}")
     public ResponseEntity<?> getCantidadCompras(@PathVariable int idCliente) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(ventaService.getCantidadCompras(idCliente));

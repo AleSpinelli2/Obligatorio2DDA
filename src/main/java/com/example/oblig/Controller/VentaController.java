@@ -63,7 +63,7 @@ public class VentaController {
         }
     }
 
-    @GetMapping("{nroVenta}")
+    @GetMapping("buscar/{nroVenta}")
     public ResponseEntity<?> buscarVenta(@PathVariable int nroVenta) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(ventaService.buscarVenta(nroVenta));

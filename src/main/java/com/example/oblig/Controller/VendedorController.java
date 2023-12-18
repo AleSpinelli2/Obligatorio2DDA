@@ -72,7 +72,8 @@ public class VendedorController {
     @PostMapping("LogIn")
     public ResponseEntity<?> logInCliente(@RequestBody LoginRequest loginRequest) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(vendedorService.findByNameAndPassword(loginRequest.getName(), loginRequest.getPassword()));
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(vendedorService.findByNameAndPassword(loginRequest.getName(), loginRequest.getPassword()));
         } catch (AppException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {

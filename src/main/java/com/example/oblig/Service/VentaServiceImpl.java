@@ -1,6 +1,7 @@
 package com.example.oblig.Service;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -88,10 +89,13 @@ public class VentaServiceImpl implements VentaService {
         return cantidadCompras;
     }
 
-    public Set<VentaEntity> findByFchCompra(Date fchCompra) {
+    public Set<VentaEntity> findByFchCompra(LocalDate fchCompra) {
         Set<VentaEntity> ventasPorFecha = new HashSet<>();
         for (VentaEntity unaVenta : ventaRepository.findAll()) {
-            if (unaVenta.getFchCompra() == fchCompra) {
+            System.out.println("fecha compra params" + fchCompra);
+            System.out.println("fecha compra base datos" + unaVenta.getFchCompra());
+            if (unaVenta.getFchCompra().equals(fchCompra)) {
+                System.out.println("ah si carajo");
                 ventasPorFecha.add(unaVenta);
             }
         }

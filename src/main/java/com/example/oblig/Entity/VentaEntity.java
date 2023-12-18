@@ -1,6 +1,7 @@
 package com.example.oblig.Entity;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,7 +34,7 @@ public class VentaEntity {
     private ClientEntity cliente;
 
     @Column
-    private Date fchCompra;
+    private LocalDate fchCompra;
     
    
     @ManyToOne(cascade = CascadeType.ALL)
@@ -72,11 +73,11 @@ public class VentaEntity {
         this.cliente = cliente;
     }
 
-    public Date getFchCompra() {
+    public LocalDate getFchCompra() {
         return fchCompra;
     }
 
-    public void setFchCompra(Date fchCompra) {
+    public void setFchCompra(LocalDate fchCompra) {
         this.fchCompra = fchCompra;
     }
 
@@ -95,7 +96,7 @@ public class VentaEntity {
     }
 
     public VentaEntity(int nroVenta, Set<ProductEntity> listaProductos, int totalVenta,
-            Date fchCompra, ClientEntity cliente, VendedorEntity vendedor) {
+            LocalDate fchCompra, ClientEntity cliente, VendedorEntity vendedor) {
         this.nroVenta = nroVenta;
         this.listaProductos = listaProductos;
         this.totalVenta = totalVenta;

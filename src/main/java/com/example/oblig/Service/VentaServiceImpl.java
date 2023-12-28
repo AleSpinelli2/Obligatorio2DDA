@@ -95,7 +95,6 @@ public class VentaServiceImpl implements VentaService {
             System.out.println("fecha compra params" + fchCompra);
             System.out.println("fecha compra base datos" + unaVenta.getFchCompra());
             if (unaVenta.getFchCompra().equals(fchCompra)) {
-                System.out.println("ah si carajo");
                 ventasPorFecha.add(unaVenta);
             }
         }

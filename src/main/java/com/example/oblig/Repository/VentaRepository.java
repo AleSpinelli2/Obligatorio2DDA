@@ -10,5 +10,4 @@ import java.sql.Date;
 
 public interface VentaRepository extends JpaRepository<VentaEntity, Integer> {
 
-    public List<ProductEntity> findByFchCompra(Date fchCompra);
 }
